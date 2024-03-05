@@ -66,7 +66,7 @@ public class Main {
 			volumeCredits += Math.max(audience - 30, 0);
 
 			// add extra credit for every ten comedy attendees
-			if (play.get("type").getAsString() == "comedy")
+			if (play.get("type").getAsString().equals("comedy"))
 				volumeCredits += Math.floor(audience / 5);
 
 			// print line for this order
