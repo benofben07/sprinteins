@@ -4,6 +4,8 @@ import java.nio.file.Files;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import model.Invoice;
+import service.StatementCreator;
 
 /**
  * 
@@ -81,17 +83,21 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-		JsonParser parser = new JsonParser();
-
-		String playsFile = new String(Files.readAllBytes(new File("plays.json").toPath()));
-
-		String invoicesFile = new String(Files.readAllBytes(new File("invoices.json").toPath()));
-
-		JsonObject plays = parser.parse(playsFile).getAsJsonObject();
-
-		JsonArray invoices = parser.parse(invoicesFile).getAsJsonArray();
-
-		System.out.println(statement(invoices, plays));
+		final Invoice invoice = Parser.parseInvoices();
+		final JsonObject jsonObject = Parser.parsePlays();
+		String statement = StatementCreator.createStatement(invoice, jsonObject);
+		System.out.println(statement);
+//		JsonParser parser = new JsonParser();
+//
+//		String playsFile = new String(Files.readAllBytes(new File("plays.json").toPath()));
+//
+//		String invoicesFile = new String(Files.readAllBytes(new File("invoices.json").toPath()));
+//
+//		JsonObject plays = parser.parse(playsFile).getAsJsonObject();
+//
+//		JsonArray invoices = parser.parse(invoicesFile).getAsJsonArray();
+//
+//		System.out.println(statement(invoices, plays));
 	}
 
 }
